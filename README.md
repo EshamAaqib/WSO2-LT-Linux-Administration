@@ -96,7 +96,7 @@ sudo mount /dev/loop12p1 /mnt
 ```
 ###### RUN ```df -hP``` to verify
 
-###### STEP 5 : Finally we should auto mount the partition to /mnt on every reboot. At this point I went ahead and created a bash script and ran it as a systemd service to run on every boot. Here is the shell script that I created and the systemd file
+###### STEP 5 : Finally we should auto mount the partition to /mnt on every reboot. At this point I went ahead and created a bash script and ran it as a systemd service to run on every boot. Here is the bash script that I created and the systemd file
 
 ```
 #!/bin/bash
