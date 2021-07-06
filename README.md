@@ -250,6 +250,7 @@ mount /dev/mapper/loop12p1_crypt  /mnt
 #Script to delete files in the /mnt folder that is older than 90 days
 find /mnt -mtime +90 -type f -delete
 ```
+###### IMPORTANT Run ```sudo chmod +x SCRIPTNAME``` to make the script executable
 
 ### Then added the following to the bottom of crontab so it will run everyday at 11:59PM. Crontab can be edited by executing ```sudo crontab -e```.
 
