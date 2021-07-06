@@ -220,6 +220,7 @@ sudo mount /dev/mapper/mnt  /mnt
 ```
 dd if=/dev/urandom of=disk_secret_key bs=512 count=8
 ```
+###### After running the above command the key will be stored in your current working directory
 ```
 sudo cryptsetup -v luksAddKey /dev/loop12p1  disk_secret_key
 ```
@@ -228,6 +229,35 @@ sudo cryptsetup -v luksAddKey /dev/loop12p1  disk_secret_key
 sudo cryptsetup -v luksOpen /dev/loop12p1 loop12p1_crypt --key-file= disk_secret_key 
 ```
 ###### After running the above command you should be greeted with a message stating "Key slot 1 unlocked" if you configured everything properly 
+
+###### Now as the key is created we can automate the whole process so it will mount on every reboot. I went ahead and modified the shell script that I created in part 4. Here is the modified shell script.
+
+```
+#!/bin/bash
+#Script to automatically create and mount encrypted loopback partition and map it to /mnt folder
+losetup -fP /home/eshamaaqib/loopbackfile.img
+cryptsetup -v luksOpen /dev/loop12p1 loop12p1_crypt --key-file=/LOCATIONOFTHEKEY/disk_secret_key
+mount /dev/mapper/loop12p1_crypt  /mnt
+```
+###### Now on every reboot it should automatically mount the partition without requiring a password on every reboot
+
+## 10. Monitoring the shared folder to find and remove files older than 90 days using bash script.
+
+### First I went ahead and created a bash script. Here is the bash script.
+
+```
+#!/bin/bash
+#Script to delete files in the /mnt folder that is older than 90 days
+find /mnt -mtime +90 -type f -delete
+```
+
+### Then added the following to the bottom of crontab so it will run everyday at 11:59PM. Crontab can be edited by executing ```sudo crontab -e```.
+
+```
+59 23 * * * /LOCATIONOFTHESCRIPT/SCRIPT
+```
+
+###### This will check and delete files older than 90 days in the /mnt folder everyday at 11:59PM.
 
 
 
