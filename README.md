@@ -49,7 +49,32 @@ sudo adduser user6 grpB
 ```
 ###### If needed we can open the /etc/host file to verify that all the changes were applied as expected.
 
+## 4. Creating a new disk partition using a loopback device, formating it with XFS filesystem type, Mounting it under /mnt and automounting the partition during a reboot
 
+### First lets create a file so we can create a loopback device using it. Execute the following
+
+```
+dd if=/dev/zero of=loopbackfile.img bs=100M count=1
+```
+
+### Now we can create a loopback device using the above created file. Execute the following
+
+```
+sudo losetup -fP loopbackfile.img
+```
+
+### To find out the loopback device created execute the following (We will need this when creating a partition so note it down. Mine is /dev/loop12) 
+
+```
+losetup -a
+```
+
+### Afterwards we can create a partition using the newly created loopback device (The loopback device path will be needed in this step which we noted down in the previous step) 
+
+```
+sudo fdisk /dev/loop12
+```
+###### IMPORTANT : After executing the above you will be prompted with some options. Press n and hit enter to create a new partition. Then press p and hit enter to create a primary partition. Then it will prompt you to enter the partition number, first sector and last sector. Just press enter so it will assign the default values. Finally enter w and write the changes
 
 
 
