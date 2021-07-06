@@ -106,6 +106,30 @@ sudo mount /dev/loop12p1 /mnt
 ```
 ###### IMPORTANT : After creating the shell script execute ```sudo chmod +x SCRIPTNAME``` to make the script executable
 
+###### Now we can create a .service file in /lib/systemd/system to run the the script on every reboot. I executed ```sudo nano /lib/systemd/system/mountloop.service```. Here is the content of the .service file.
+
+```
+[Unit]
+Description=Auto create and mount loopback device
+
+[Service]
+ExecStart= LOCATIONOFTHESCRIPT/SCRIPTNAME
+
+[Install]
+WantedBy=multi-user.target
+```
+###### Point the ExecStart to your script.
+
+###### Now execute the following to enable and start the service that we created previously.
+
+```
+sudo systemctl enable NEWLYCREATEDSERVICENAME.service
+sudo systemctl start NEWLYCREATEDSERVICENAME.service
+```
+###### Finally execute ```sudo systemctl status NEWLYCREATEDSERVICENAME.service``` to check the status of the service. If it outputs succeeded that means everything is configured properly. Now on every reboot it should automatically create the loopback device and mount the partition.
+
+###### Thats it now we have created a loopback device using a file, created a partition using it, formatted it using the XFS filesystem, then mounted it to /mnt and created the loopback device and mounted the partiton on every reboot using a shell script.
+
 
 
 
