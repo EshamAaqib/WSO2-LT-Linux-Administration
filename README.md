@@ -96,15 +96,15 @@ sudo mount /dev/loop12p1 /mnt
 ```
 ###### RUN ```df -hP``` to verify
 
-###### STEP 5 : Finally we should auto mount the partition to /mnt on every reboot. At this point I went ahead and created a shell script and ran it as a systemd service to run on every boot. Here is the shell script that I created and the systemd file
+###### STEP 5 : Finally we should auto mount the partition to /mnt on every reboot. At this point I went ahead and created a bash script and ran it as a systemd service to run on every boot. Here is the shell script that I created and the systemd file
 
 ```
 #!/bin/bash
 #Script to automatically create and mount loopback partition
-losetup -fP /home/eshamaaqib/loopbackfile.img
+losetup -fP /LOCATIONOFLOOPBACKFILE/LOOPBACKFILE.img
 sudo mount /dev/loop12p1 /mnt
 ```
-###### IMPORTANT : After creating the shell script execute ```sudo chmod +x SCRIPTNAME``` to make the script executable
+###### IMPORTANT : After creating the bash script execute ```sudo chmod +x SCRIPTNAME``` to make the script executable
 
 ###### Now we can create a .service file in /lib/systemd/system to run the the script on every reboot. I executed ```sudo nano /lib/systemd/system/mountloop.service```. Here is the content of the .service file.
 
@@ -230,12 +230,12 @@ sudo cryptsetup -v luksOpen /dev/loop12p1 loop12p1_crypt --key-file= disk_secret
 ```
 ###### After running the above command you should be greeted with a message stating "Key slot 1 unlocked" if you configured everything properly 
 
-###### Now as the key is created we can automate the whole process so it will mount on every reboot. I went ahead and modified the shell script that I created in part 4. Here is the modified shell script.
+###### Now as the key is created we can automate the whole process so it will mount on every reboot. I went ahead and modified the bash script that I created in part 4. Here is the modified bash script.
 
 ```
 #!/bin/bash
 #Script to automatically create and mount encrypted loopback partition and map it to /mnt folder
-losetup -fP /home/eshamaaqib/loopbackfile.img
+losetup -fP /LOCATIONOFLOOPBACKFILE/LOOPBACKFILE.img
 cryptsetup -v luksOpen /dev/loop12p1 loop12p1_crypt --key-file=/LOCATIONOFTHEKEY/disk_secret_key
 mount /dev/mapper/loop12p1_crypt  /mnt
 ```
