@@ -94,7 +94,7 @@ sudo mkfs.xfs /dev/loop12p1
 ```
 sudo mount /dev/loop12p1 /mnt
 ```
-###### RUN df -hP to verify
+###### RUN ```df -hP``` to verify
 
 ###### STEP 5 : Finally we should auto mount the partition to /mnt on every reboot. At this point I went ahead and created a shell script and ran it as a systemd service to run on every boot. Here is the shell script that I created and the systemd file
 
