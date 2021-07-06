@@ -215,7 +215,7 @@ sudo mount /dev/mapper/mnt  /mnt
 
 ### Finally we should automate it to mount on every reboot and unlock the volume using a key
 
-###### First we need to create a key to unlock the partition wihtout using a password. To do so execute the following
+###### First we need to create a key to unlock the partition without using a password. To do so execute the following
 
 ```
 dd if=/dev/urandom of=disk_secret_key bs=512 count=8
