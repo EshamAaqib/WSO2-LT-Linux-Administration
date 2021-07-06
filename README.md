@@ -138,6 +138,96 @@ sudo mkdir share-grpB
 sudo mkdir share-common
 ```
 
+## 6. Configuring the folder permissions
+
+### Part A : /mnt/share-grpA -> user1 is the owner . All members in grpA as well as the owner should be able to view files inside the folder and modify or create new files. Execute the following to assign the permissions.
+
+```
+sudo chown -R user1 share-grpA 
+sudo chgrp grpA ./share-grpA 
+sudo chmod 770 share-grpA 
+```
+
+### Part B : /mnt/share-grpB -> user4 is the owner . All members in grpB as well as the owner should be able to view files inside the folder and modify or create new files. Execute the following to assign the permissions.
+
+```
+sudo chown -R user4 share-grpB  (Set user1 to directory share-grpA )
+sudo chgrp grpB ./share-grpB (Changing directory group to grpA)
+sudo chmod 770 share-grpB (Setting permissions according to the requirements given)
+```
+
+### Part C : /mnt/share-common -> user1 is the owner . All members in grpA and grpB should be able to view and create new files inside the folder. But they should not be able to delete another user’s file. Anyone else should not be able to view,create or delete files inside this folder. Execute the following to assign the permissions.
+
+```
+sudo chown -R user1 share-common  
+sudo setfacl -m g:grpA:rwx share-common 
+sudo setfacl -m g:grpB:rwx share-common 
+sudo chmod 1770 share-common 
+```
+
+## 7. Allowing CTO to only view the files inside the shared folder without adding CTO to grpA or grpB. 
+
+```
+sudo setfacl -m u:user7:rx share-grpA 
+sudo setfacl -m u:user7:rx share-grpB 
+sudo setfacl -m u:user7:rx share-common 
+```
+
+## 8.  Installing the git command for cloning Github repositories
+
+```
+sudo apt install git
+```
+
+## 9. Encrypting /mnt partition using cryptsetup tool
+
+### First we need to unmount the partition
+
+```
+sudo umount /mnt
+```
+
+### Now we can start to encrypt the partition by executing the following
+
+```
+sudo cryptsetup -y -v luksFormat /dev/loop12p1 
+```
+###### /dev/loop12p1 is the partition we created using the loopback device. Yours might be different. You will be prompted to enter a new password after executing the above.
+
+### Now mount the encrypted partition by executing the following 
+
+```
+sudo cryptsetup luksOpen /dev/loop12p1 mnt
+```
+###### This will not mount it to /mnt. It will be mounted to /dev/mapper/mnt. In order to use it as a partition and mount it to /mnt we will need to format and map it.
+
+### Formatting the partition
+
+```
+sudo mkfs.xfs /dev/mapper/mnt
+```
+
+### Now we can mount it to /mnt
+
+```
+sudo mount /dev/mapper/mnt  /mnt
+```
+
+### Finally we should automate it to mount on every reboot and unlock the volume using a key
+
+###### First we need to create a key to unlock the partition wihtout using a password. To do so execute the following
+
+```
+dd if=/dev/urandom of=disk_secret_key bs=512 count=8
+```
+```
+sudo cryptsetup -v luksAddKey /dev/loop12p1  disk_secret_key
+```
+###### The above command will prompt you to enter a password. Enter the password you provided when encrypting the parition 
+```
+sudo cryptsetup -v luksOpen /dev/loop12p1 loop12p1_crypt --key-file= disk_secret_key 
+```
+###### After running the above command you should be greeted with a message stating "Key slot 1 unlocked" if you configured everything properly 
 
 
 
