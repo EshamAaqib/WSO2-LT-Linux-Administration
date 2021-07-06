@@ -130,6 +130,13 @@ sudo systemctl start NEWLYCREATEDSERVICENAME.service
 
 ###### Thats it now we have created a loopback device using a file, created a partition using it, formatted it using the XFS filesystem, then mounted it to /mnt and created the loopback device and mounted the partiton on every reboot using a shell script.
 
+## 5. Creating 3 folders inside /mnt. Execute the following to do so
+
+```
+sudo mkdir share-grpA
+sudo mkdir share-grpB
+sudo mkdir share-common
+```
 
 
 
