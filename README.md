@@ -89,12 +89,24 @@ sudo partprobe -s
 sudo mkfs.xfs /dev/loop12p1
 ```
 
-###### STEP 4 : Finally we can mount the newly created and formatted partition to /mnt. Execute the following to do so
+###### STEP 4 : Now We can mount the newly created and formatted partition to /mnt. Execute the following to do so
 
 ```
 sudo mount /dev/loop12p1 /mnt
 ```
 ###### RUN df -hP to verify
+
+###### STEP 5 : Finally we should auto mount the partition to /mnt on every reboot. At this point I went ahead and created a shell script and ran it as a systemd service to run on every boot. Here is the shell script that I created and the systemd file
+
+```
+#!/bin/bash
+#Script to automatically create and mount loopback partition
+losetup -fP /home/eshamaaqib/loopbackfile.img
+sudo mount /dev/loop12p1 /mnt
+```
+###### IMPORTANT : After creating the shell script execute ```sudo chmod +x SCRIPTNAME``` to make the script executable
+
+
 
 
 
