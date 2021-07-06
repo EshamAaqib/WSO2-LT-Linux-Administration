@@ -74,7 +74,12 @@ losetup -a
 ```
 sudo fdisk /dev/loop12
 ```
-###### IMPORTANT : After executing the above you will be prompted with some options. Press n and hit enter to create a new partition. Then press p and hit enter to create a primary partition. Then it will prompt you to enter the partition number, first sector and last sector. Just press enter so it will assign the default values. Finally enter w and write the changes
+###### IMPORTANT : STEP 1: After executing the above you will be prompted with some options. Press n and hit enter to create a new partition. Then press p and hit enter to create a primary partition. Then it will prompt you to enter the partition number, first sector and last sector. Just press enter so it will assign the default values. Finally enter w and write the changes. Again enter fdisk executing the above command and press p to list the newly created partiton path. Note it down as we will need it later. (Mine is /dev/loop12p1)
+
+```
+sudo partprobe -s
+```
+###### STEP 2 : Execute the above to reflect the changes to the kernel
 
 
 
