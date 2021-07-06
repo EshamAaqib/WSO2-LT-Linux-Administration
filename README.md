@@ -262,5 +262,6 @@ find /mnt -mtime +90 -type f -delete
 
 
 
+## This whole assignment was written on a private repository on GitHub I used GitFront to share the private repository and here is the link : https://gitfront.io/r/eshamaaqib/6b74ba6b67d59d8a88e5af8c8c904e324401ae92/WSO2-Linux-Administration-Assignment/
 
 
