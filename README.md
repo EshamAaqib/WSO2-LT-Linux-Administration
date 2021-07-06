@@ -128,7 +128,7 @@ sudo systemctl start NEWLYCREATEDSERVICENAME.service
 ```
 ###### Finally execute ```sudo systemctl status NEWLYCREATEDSERVICENAME.service``` to check the status of the service. If it outputs succeeded that means everything is configured properly. Now on every reboot it should automatically create the loopback device and mount the partition.
 
-###### Thats it now we have created a loopback device using a file, created a partition using it, formatted it using the XFS filesystem, then mounted it to /mnt and created the loopback device and mounted the partiton on every reboot using a shell script.
+###### Thats it now we have created a loopback device using a file, created a partition using it, formatted it using the XFS filesystem, then mounted it to /mnt and created the loopback device and mounted the partiton on every reboot using a bash script.
 
 ## 5. Creating 3 folders inside /mnt. Execute the following to do so
 
