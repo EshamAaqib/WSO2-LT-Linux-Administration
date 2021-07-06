@@ -151,9 +151,9 @@ sudo chmod 770 share-grpA
 ### Part B : /mnt/share-grpB -> user4 is the owner . All members in grpB as well as the owner should be able to view files inside the folder and modify or create new files. Execute the following to assign the permissions.
 
 ```
-sudo chown -R user4 share-grpB  (Set user1 to directory share-grpA )
-sudo chgrp grpB ./share-grpB (Changing directory group to grpA)
-sudo chmod 770 share-grpB (Setting permissions according to the requirements given)
+sudo chown -R user4 share-grpB  
+sudo chgrp grpB ./share-grpB 
+sudo chmod 770 share-grpB 
 ```
 
 ### Part C : /mnt/share-common -> user1 is the owner . All members in grpA and grpB should be able to view and create new files inside the folder. But they should not be able to delete another user’s file. Anyone else should not be able to view,create or delete files inside this folder. Execute the following to assign the permissions.
