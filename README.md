@@ -71,7 +71,7 @@ losetup -a
 
 ### Afterwards we can create a partition using the newly created loopback device (The loopback device path will be needed in this step which we noted down in the previous step) 
 
-###### IMPORTANT : STEP 1: After executing the below you will be prompted with some options. Press n and hit enter to create a new partition. Then press p and hit enter to create a primary partition. Then it will prompt you to enter the partition number, first sector and last sector. Just press enter so it will assign the default values. Finally enter w and write the changes. Again enter fdisk executing the above command and press p to list the newly created partiton path. Note it down as we will need it later. (Mine is /dev/loop12p1)
+###### IMPORTANT : STEP 1: After executing the below you will be prompted with some options. Press n and hit enter to create a new partition. Then press p and hit enter to create a primary partition. Then it will prompt you to enter the partition number, first sector and last sector. Just press enter so it will assign the default values. Finally enter w and write the changes. Again enter fdisk executing the command below and press p to list the newly created partiton path. Note it down as we will need it later. (Mine is /dev/loop12p1)
 
 ```
 sudo fdisk /dev/loop12
