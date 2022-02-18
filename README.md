@@ -1,4 +1,4 @@
-# WSO2-Linux-Administration-Assignment
+# WSO2-LT-Linux-Administration
 
 ## 1. Setting the VM name as “prod-devops-master” and setting timezone as “Asia/Colombo”
 
